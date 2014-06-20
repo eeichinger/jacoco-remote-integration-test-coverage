@@ -12,7 +12,7 @@
         <maven>3.0.5</maven>
     </prerequisites>
 
-    <properties>        
+    <properties>
         <!--<project.root.basedir>/Users/admin/Dropbox/oc_work/postoffice/cobertura-agent-tests</project.root.basedir>-->
         <project.root.basedir>${user.dir}</project.root.basedir>
 
@@ -84,6 +84,12 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.version}</version>
+                <configuration>
+                    <append>true</append>
+                    <propertyName>jacoco.agent.argLine</propertyName>
+                    <!-- used for surefire/failsafe-plugin combination -->
+                    <!--<destFile>${sonar.jacoco.reportPath}</destFile>-->
+                </configuration>
                 <executions>
                     <execution>
                         <id>jacoco-initialize</id>
@@ -91,15 +97,46 @@
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <configuration>
+                            <destFile>${sonar.jacoco.reportPath}</destFile>
+                        </configuration>
                     </execution>
+                    <execution>
+                        <id>jacoco-integration-initialize</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>prepare-agent-integration</goal>
+                        </goals>
+                        <configuration>
+                            <destFile>${sonar.jacoco.itReportPath}</destFile>
+                        </configuration>
+                    </execution>
+<!--
+                    <execution>
+                        <id>jacoco-check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <haltOnFailure>true</haltOnFailure>
+                            <dataFile>${sonar.jacoco.itReportPath}</dataFile>
+                            <rules>
+                                <rule>
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>INSTRUCTION</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.80</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+-->
                 </executions>
-                <configuration>
-                    <append>true</append>
-                    <propertyName>jacoco.agent.argLine</propertyName>
-                    <!-- used for surefire/failsafe-plugin combination -->
-                    <!--<destFile>${sonar.jacoco.reportPath}</destFile>-->
-                    <destFile/>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
