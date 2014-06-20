@@ -211,7 +211,7 @@
                         <testFailureIgnore>false</testFailureIgnore>
                         <useFile>false</useFile>
                         <reportsDirectory>${project.basedir}/${sonar.junit.reportsPath}</reportsDirectory>
-                        <argLine>${jacoco.agent.argLine},destfile=${sonar.jacoco.reportPath}</argLine>
+                        <argLine>${jacoco.agent.argLine}</argLine>
                         <properties>
                             <property>
                                 <name>listener</name>
@@ -235,8 +235,7 @@
                             </goals>
                             <configuration>
                                 <reportsDirectory>${project.basedir}/${sonar.junit.itReportsPath}</reportsDirectory>
-                                <!--<argLine>-javaagent:/Users/admin/.m2/repository/org/jacoco/org.jacoco.agent/0.7.1.201405082137/org.jacoco.agent-0.7.1.201405082137-runtime.jar=destfile=${sonar.jacoco.itReportPath},append=true,output=file,append=true,classdumpdir=/Users/admin/Dropbox/oc_work/postoffice/cobertura-agent-tests/target/classes-instrumented-it</argLine>-->
-                                <argLine>${jacoco.agent.argLine},destfile=${sonar.jacoco.itReportPath}</argLine>
+                                <argLine>${jacoco.agent.argLine}</argLine>
                                 <includes>
                                     <include>**/*IT.class</include>
                                 </includes>
@@ -250,7 +249,7 @@
                             </goals>
                             <configuration>
                                 <reportsDirectory>${project.basedir}/${sonar.junit.itReportsPath}</reportsDirectory>
-                                <argLine></argLine>
+                                <argLine/>
                                 <includes>
                                     <include>**/*AT.class</include>
                                 </includes>
