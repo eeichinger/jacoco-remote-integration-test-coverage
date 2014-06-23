@@ -36,7 +36,7 @@ public class JUnitJacocoRemoteListener extends RunListener {
 
     private void dumpFromRemote(String name) throws IOException {
         byte[] data = fetchBytes("http://localhost:8080/jacoco/dump?sessionid="+ URLEncoder.encode(name, "utf-8")+"&reset=true");
-        String destfile = System.getProperty("destfile");
+        String destfile = System.getProperty("destfile", "./target/jacoco-it.exec");
         if (!destfile.endsWith(".exec")) {
             throw new IllegalArgumentException("missing destfile config property");
         }
