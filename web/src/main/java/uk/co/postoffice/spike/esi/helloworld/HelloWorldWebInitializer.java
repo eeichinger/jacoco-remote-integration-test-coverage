@@ -1,6 +1,11 @@
 package uk.co.postoffice.spike.esi.helloworld;
 
+import jacoco.JacocoAgentProxyServletFilter;
+import org.springframework.core.Conventions;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.*;
+import java.util.EnumSet;
 
 /**
  * @author Erich Eichinger
@@ -20,5 +25,24 @@ public class HelloWorldWebInitializer extends AbstractAnnotationConfigDispatcher
     @Override
     protected String[] getServletMappings() {
         return new String[] { "/" };
+    }
+
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        super.onStartup(servletContext);
+
+        registerJacocoFilter(servletContext);
+        
+    }
+
+    private void registerJacocoFilter(ServletContext servletContext) {
+        Filter filter = new JacocoAgentProxyServletFilter();
+        String filterName = Conventions.getVariableName(filter);
+        FilterRegistration.Dynamic registration = servletContext.addFilter(filterName, filter);
+        registration.setAsyncSupported(isAsyncSupported());
+        registration.addMappingForUrlPatterns(
+                EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE),
+                false,
+                "/jacoco/*");
     }
 }
