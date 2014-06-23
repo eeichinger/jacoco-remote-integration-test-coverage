@@ -1,11 +1,10 @@
 package uk.co.postoffice.spike.esi.helloworld;
 
-import uk.co.postoffice.spike.esi.helloworld.JacocoControllerHttpProxy;
+import jacoco.JacocoControllerHttpProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.thymeleaf.extras.springsecurity3.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring3.SpringTemplateEngine;
@@ -21,10 +20,10 @@ public class HelloWorldConfiguration extends WebMvcConfigurationSupport {
         configurer.enable();
     }
 
-//    @Bean
-//    public JacocoControllerHttpProxy jacocoControllerHttpProxy() {
-//        return new JacocoControllerHttpProxy();
-//    }
+    @Bean
+    public JacocoControllerHttpProxy jacocoControllerHttpProxy() {
+        return new JacocoControllerHttpProxy();
+    }
 
     @Bean
     public ThymeleafViewResolver thymeleafViewResolver() {

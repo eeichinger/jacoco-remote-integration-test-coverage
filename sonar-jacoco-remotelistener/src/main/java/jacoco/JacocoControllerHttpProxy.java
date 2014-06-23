@@ -1,6 +1,5 @@
-package uk.co.postoffice.spike.esi.helloworld;
+package jacoco;
 
-import jacoco.AbstractJacocoControllerHttpProxy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,12 +11,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/jacoco")
-public class JacocoControllerHttpProxy extends AbstractJacocoControllerHttpProxy {
+public class JacocoControllerHttpProxy {
 
-    @Override
+    private final JacocoController jacocoController = new JacocoController();
+    
     @RequestMapping("/dump")
     @ResponseBody
     public byte[] getExecutionData(@RequestParam("sessionid") String sessionId, @RequestParam("reset") boolean reset) {
-        return super.getExecutionData(sessionId, reset);
+        return jacocoController.getExecutionData(sessionId, reset);
     }
 }

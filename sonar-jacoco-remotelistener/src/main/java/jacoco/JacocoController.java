@@ -23,7 +23,7 @@ public class JacocoController {
         if (agent != null) {
             System.out.println("JacocoAgent setting sessionid '" + sessionId + "'");
             agent.setSessionId(sessionId);
-            return agent.getExecutionData(true);
+            return agent.getExecutionData(reset);
         }
         return new byte[0];
     }
