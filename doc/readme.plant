@@ -31,13 +31,12 @@ end box
 '  end
 
   group coverage teardown
-  test -> runlistener : onTestEnd()
-  runlistener -> agentproxy : dump captured coverage data
-  agentproxy -> agent : fetch captured coverage data & reset
+    test -> runlistener : onTestEnd()
+    runlistener -> agentproxy : dump captured coverage data
+    agentproxy -> agent : fetch captured coverage data & reset
+    test -> test : append data to /jacoco-it.exec 
   end
     
-  test -> test : append data to /jacoco-it.exec 
-
 'end
 
 @enduml
