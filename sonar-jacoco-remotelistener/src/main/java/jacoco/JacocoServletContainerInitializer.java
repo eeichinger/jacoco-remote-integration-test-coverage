@@ -7,6 +7,9 @@ import javax.servlet.ServletException;
 import java.util.Set;
 
 /**
+ * By simply linking this JAR into your web.xml-less Servlet 3.0 application, a JacocoAgentProxyServletFilter will be
+ * installed to listen on /jacoco/* requests.
+ * 
  * @author Erich Eichinger
  * @since 23/06/2014
  */

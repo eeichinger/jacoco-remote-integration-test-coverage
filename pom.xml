@@ -62,17 +62,16 @@
         <module>acceptance-tests</module>
     </modules>
 
+    <!-- annoying, but there doesn't seem to be an easier way to add the necessary jacoco dependencies to the surefire runner for capturing per-test execution -->
     <dependencies>
         <dependency>
             <groupId>org.codehaus.sonar-plugins.java</groupId>
             <artifactId>sonar-jacoco-listeners</artifactId>
-            <version>2.2.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jacoco</groupId>
             <artifactId>org.jacoco.agent</artifactId>
-            <version>${jacoco.version}</version>
             <classifier>runtime</classifier>
             <scope>test</scope>
         </dependency>
@@ -375,6 +374,19 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.11</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.sonar-plugins.java</groupId>
+                <artifactId>sonar-jacoco-listeners</artifactId>
+                <version>2.2.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jacoco</groupId>
+                <artifactId>org.jacoco.agent</artifactId>
+                <version>${jacoco.version}</version>
+                <classifier>runtime</classifier>
                 <scope>test</scope>
             </dependency>
             <dependency>

@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * This is the ServletFilter-equivalent to {@link org.sonar.java.jacoco.JUnitListener}
+ * 
  * @author Erich Eichinger
  * @since 23/06/2014
  */

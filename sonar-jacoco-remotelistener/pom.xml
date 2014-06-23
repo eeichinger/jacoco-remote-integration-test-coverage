@@ -11,6 +11,10 @@
 
     <artifactId>sonar-jacoco-remotelistener</artifactId>
 
+    <description>
+    This module contains the necessary client- and server-side bits to capture remote coverage info. The server side acts as proxy for the target JVMs Jacoco-Agent. On the client side, a JUnit RunListener ensures that captured coverage info gets fetched from the server and written into the local coverage info file for later processing with e.g. Sonar.     
+    </description>
+    
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -20,8 +24,12 @@
         <dependency>
             <groupId>org.jacoco</groupId>
             <artifactId>org.jacoco.agent</artifactId>
-            <version>${jacoco.version}</version>
             <classifier>runtime</classifier>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.sonar-plugins.java</groupId>
+            <artifactId>sonar-jacoco-listeners</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -37,7 +45,6 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
