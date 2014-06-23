@@ -9,28 +9,9 @@ import org.jacoco.agent.rt.RT;
  */
 public abstract class AbstractJacocoControllerHttpProxy {
 
-//    IAgent agent;
-
-//    public JacocoControllerHttpProxy() {
-//        agent = getAgent();
-//    }
-
-    private IAgent getAgent() {
-        try {
-            return RT.getAgent();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return null;
-    }
+    private final JacocoController jacocoController = new JacocoController();
 
     public byte[] getExecutionData(String sessionId, boolean reset) {
-        IAgent agent = getAgent();
-        if (agent != null) {
-            System.out.println("JacocoAgent setting sessionid '" + sessionId + "'");
-            agent.setSessionId(sessionId);
-            return agent.getExecutionData(true);
-        }
-        return new byte[0];
+        return jacocoController.getExecutionData(sessionId, reset);
     }
 }
