@@ -31,8 +31,7 @@ public class HelloWorldWebInitializer extends AbstractAnnotationConfigDispatcher
     public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
 
-        registerJacocoFilter(servletContext);
-        
+        registerJacocoFilter(servletContext);        
     }
 
     private void registerJacocoFilter(ServletContext servletContext) {

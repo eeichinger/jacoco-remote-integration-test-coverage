@@ -54,7 +54,7 @@
 
     <modules>
         <module>sonar-jacoco-remotelistener</module>
-        <module>web</module>
+        <module>sampleweb</module>
         <module>integration-tests</module>
         <module>acceptance-tests</module>
     </modules>

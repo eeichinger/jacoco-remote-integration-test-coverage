@@ -20,7 +20,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>web</artifactId>
+            <artifactId>sampleweb</artifactId>
             <version>${project.version}</version>
             <classifier>classes</classifier>
             <scope>test</scope>

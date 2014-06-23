@@ -7,7 +7,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>web</artifactId>
+    <artifactId>sampleweb</artifactId>
     <packaging>war</packaging>
 
     <prerequisites>
