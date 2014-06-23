@@ -5,14 +5,22 @@ import org.junit.runner.notification.RunListener;
 import sun.misc.IOUtils;
 
 import java.io.*;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 
 /**
+ * A JUnit {@link RunListener} implementation to capture coverage info from a remote application, exposed by 
+ * either {@link JacocoAgentProxyController} or {@link JacocoAgentProxyServletFilter}.
+ * The listener expects 2 system properties to be set:
+ * "targeturl":  
+ * "destfile": set to the path of Jacoco's execution coverage output file.
+ *
+ *  
  * @author Erich Eichinger
  * @since 06/06/2014
  */
-public class JUnitJacocoRemoteListener extends RunListener {
+public class JUnitHttpListener extends RunListener {
 
     @Override
     public void testStarted(Description description) throws Exception {
@@ -34,12 +42,11 @@ public class JUnitJacocoRemoteListener extends RunListener {
         dumpFromRemote(name);
     }
 
-    private void dumpFromRemote(String name) throws IOException {
-        byte[] data = fetchBytes("http://localhost:8080/jacoco/dump?sessionid="+ URLEncoder.encode(name, "utf-8")+"&reset=true");
+    private void dumpFromRemote(String name) throws Exception {
+//        URI targeturl = new URI(System.getProperty("targeturl", "http://localhost:8080/jacoco"));
+        URI targeturl = new URI(System.getProperty("targeturl"));
         String destfile = System.getProperty("destfile", "./target/jacoco-it.exec");
-        if (!destfile.endsWith(".exec")) {
-            throw new IllegalArgumentException("missing destfile config property");
-        }
+        byte[] data = fetchBytes(targeturl.resolve("dump?sessionid=" + URLEncoder.encode(name, "utf-8") + "&reset=true"));
         final File file = new File(destfile); // "../target/jacoco-it.exec"
         System.out.println("JacocoController: dump(" + name + ") to " + file.getAbsolutePath());
         save(file, true, data);
@@ -49,9 +56,8 @@ public class JUnitJacocoRemoteListener extends RunListener {
         return description.getClassName() + " " + description.getMethodName();
     }
 
-    private byte[] fetchBytes(String strUrl) throws IOException {
-        URL url = new URL(strUrl);
-        return IOUtils.readFully((InputStream) url.getContent(), -1, true);
+    private byte[] fetchBytes(URI url) throws IOException {
+        return IOUtils.readFully((InputStream) url.toURL().getContent(), -1, true);
     }
 
     public void save(final File file, final boolean append, byte[] data) throws IOException {

@@ -1,6 +1,12 @@
 
 # Capturing remote/ui acceptance test code coverage results using JaCoCo
 
+## Overview
+
+Jacoco comes with out-of-the-box implementations for capturing test coverage information from a remote process over TCP by ['output=tcpserver|tcpclient' agent configuration](http://www.eclemma.org/jacoco/trunk/doc/agent.html), but in modern Cloud-deployment environments (e.g. Cloudfoundry) it is not always possible or desirable to know the concrete TCP addresses in advance or connect directly to a port other than HTTP/HTTPS.
+
+This sample explores how to capture the test coverage information from a remote process using [Jacoco](http://www.eclemma.org/jacoco/index.html) and [SonarQube](http://www.sonarqube.org/) over HTTP. This is particularly useful for HTTP-based applications.
+
 ## Prerequisites
 
 The below describes an example setup of Sonar using MySQL as db backend (see also http://chapter31.com/2013/05/02/installing-sonar-source-on-mac-osx/) and has been
@@ -62,21 +68,22 @@ $>mvn clean install
 $>mvn sonar:sonar
 ```
 
-Now open the project dashboard in Sonar. You should see the IT coverage at 44.1%. Drill down and you should see that both methods (home(), edit()) in HomeController are covered by integration tests. 
+Now open the project dashboard in Sonar. You should see the IT coverage at 64.0%. Drill down and you should see that both methods (home(), edit()) in HomeController are covered by integration tests. 
 
 
 ## Steps to configure your own project
 
 1. *absolute* file path for jacoco-it.exec coverage record
 2. add javaagent to target jvm with output=none
-3. add jacocoremotelistener controller to your application
+3. add JacocoAgentProxyServletFilter or JacocoAgentProxyController to your servlet application
+4. add the JUnit
 
 ## How does it work
 
-## TODO
+![Capture Flow](doc/coveragecaptureflow.png)
 
-*) read target url in junit listener from config property
-*) migrate from spring mvc controller to servlet/filter for better reuse
+## TODOs
+
 *) maybe no need to dump() after every request? IT don't support per-test coverage anyway
 
 ## Useful Links

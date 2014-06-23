@@ -1,0 +1,43 @@
+
+@startuml coveragecaptureflow.png
+
+title Capture Remote Test Coverage Flow
+
+autonumber "<b>0."
+hide footbox
+
+'loop for each test
+
+box "Test JVM" #LightBlue
+	participant "Test Process" as test
+	participant "JUnitHttpListener" as runlistener
+end box
+
+box "Application JVM" #LightGreen
+	participant "JacocoAgentProxy" as agentproxy
+	participant "Deployed Application" as app
+	participant "Jacoco JVM Agent" as agent
+end box
+
+  group coverage setup
+    test -> runlistener : OnTestStart
+    runlistener -> agentproxy : begin(=reset) coverage data
+    agentproxy -> agent : reset coverage data
+  end
+    
+'  group remote test
+    test -> app : GET /...
+    app -> agent : append coverage data
+'  end
+
+  group coverage teardown
+  test -> runlistener : onTestEnd()
+  runlistener -> agentproxy : dump captured coverage data
+  agentproxy -> agent : fetch captured coverage data & reset
+  end
+    
+  test -> test : append data to /jacoco-it.exec 
+
+'end
+
+@enduml
