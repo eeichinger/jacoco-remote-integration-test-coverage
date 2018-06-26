@@ -1,6 +1,11 @@
 
 # Capturing remote/ui acceptance test code coverage results using JaCoCo
 
+| ​ | ​ |
+| --------- | -------------------------------------------------------
+| **NOTE**  | this is an example for a NOTE box with invisible header chars
+
+
 ## Overview
 
 Jacoco comes with out-of-the-box implementations for capturing test coverage information from a remote process over TCP by ['output=tcpserver|tcpclient' agent configuration](http://www.eclemma.org/jacoco/trunk/doc/agent.html), but in modern Cloud-deployment environments (e.g. Cloudfoundry) it is not always possible or desirable to know the concrete TCP addresses in advance or connect directly to a port other than HTTP/HTTPS.
