@@ -23,7 +23,7 @@ tested with MySQL 5.6, SonarQube 4.3.1 and Maven 3.0.5
     
     create the sonar database using e.g. [create_database.sql](https://github.com/SonarSource/sonar-examples/blob/master/scripts/database/mysql/create_database.sql)
     
-    ```
+```sql
 # File: create_database.sql
 # Create SonarQube database and user.
 # Command: mysql -u root -p < create_database.sql
@@ -33,7 +33,7 @@ CREATE USER 'sonar' IDENTIFIED BY 'sonar';
 GRANT ALL ON sonar.* TO 'sonar'@'%' IDENTIFIED BY 'sonar';
 GRANT ALL ON sonar.* TO 'sonar'@'localhost' IDENTIFIED BY 'sonar';
 FLUSH PRIVILEGES;
-    ```
+```
 
 2. Download and run [SonarQube](http://www.sonarsource.org/downloads/) 4.3 or higher
 
@@ -44,25 +44,25 @@ FLUSH PRIVILEGES;
     b) with (at least) version 4.3.1 there may be a conflict with the currently installed version of ruby on your system (see https://jira.codehaus.org/browse/SONAR-3579)
     in order to fix that, open /usr/local/Cellar/sonar/4.3.1/libexec/web/WEB-INF/config/environment.rb and after the line
   
-    ```
-ENV['GEM_HOME'] = $servlet_context.getRealPath('/WEB-INF/gems')
-    ```
+```
+    ENV['GEM_HOME'] = $servlet_context.getRealPath('/WEB-INF/gems')
+```
 
-    add  
+   add  
 
-    ```
-ENV['GEM_HOME'] = $servlet_context.getRealPath('/WEB-INF/gems')
-# avoid ruby version conflicts
-ENV['GEM_PATH']=''
-    ```
+```
+    ENV['GEM_HOME'] = $servlet_context.getRealPath('/WEB-INF/gems')
+    # avoid ruby version conflicts
+    ENV['GEM_PATH']=''
+```
 
-    c) ensure you have the Sonar Java plugin installed
+   c) ensure you have the Sonar Java plugin installed
      
-        open http://localhost:9000, login as admin/admin and go to Settings->System->Update Center to install the Java plugin
+   open http://localhost:9000, login as admin/admin and go to Settings->System->Update Center to install the Java plugin
         
-3. Maven 3.0.5
+  3. Maven 3.0.5
 
-  OSX: $>brew install maven30
+      OSX: $>brew install maven30
 
 ## Running
 
